@@ -1,0 +1,2 @@
+# Iris-Clustering-Analysis-in-Python-K-Means-K-Medoids-and-Hierarchical-Clustering-
+This repository contains a complete Python implementation of several automatic (unsupervised) classification techniques applied to the famous Iris dataset. The project focuses on understanding, implementing, visualizing, and comparing different clustering algorithms, including partition-based methods and hierarchical methods.
