@@ -1,4 +1,3 @@
-#TALEB ABDELMALEK 
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.datasets import load_iris
@@ -81,3 +80,4 @@ plt.show()
 print(f"K-means Error Rate: {kmeans_error_rate * 100:.2f}%")
 if kmedoids_available:
     print(f"K-medoids Error Rate: {kmedoids_error_rate * 100:.2f}%")
+
