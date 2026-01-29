@@ -1,298 +1,342 @@
-# Iris Clustering Analysis in Python (K-Means, K-Medoids and Hierarchical Clustering)
-
-## Repository Name
-
-iris-clustering-analysis-python
-
-## Repository Description
-
-This repository contains a complete Python implementation of several automatic (unsupervised) classification techniques applied to the famous Iris dataset. The project focuses on understanding, implementing, visualizing, and comparing different clustering algorithms, including partition-based methods and hierarchical methods.
-
-The project is designed mainly for educational purposes and practical learning in machine learning and data mining courses.
-
-Implemented algorithms:
-
-* K-Means
-* K-Medoids
-* Hierarchical Clustering (Single Linkage)
-* Hierarchical Clustering (Complete Linkage)
-
-The project also includes:
-
-* 3D visualization of clusters
-* Dendrogram visualization
-* Confusion matrices
-* Error rate computation
+# Iris Clustering Analysis Using Unsupervised Learning (Python)
 
 ---
 
-## Project Objectives
+## Overview
 
-The main objectives of this project are:
+This repository contains a professional and well-structured implementation of several unsupervised clustering algorithms applied to the Iris dataset using Python. The project demonstrates partition-based and hierarchical clustering techniques, along with visualization and evaluation tools.
 
-* Understand the concept of unsupervised learning
-* Learn how clustering algorithms group data without class labels
-* Apply multiple clustering methods on the same dataset
-* Compare the behavior and performance of each method
-* Visualize clustering results
-* Interpret dendrograms
-* Evaluate clustering quality
+The project is suitable for academic use, machine learning courses, and practical experimentation.
+
+---
+
+## Implemented Methods
+
+
+- K-Means
+- K-Medoids
+- Hierarchical Clustering (Single Linkage)
+- Hierarchical Clustering (Complete Linkage)
+
+
+---
+
+## Objectives
+
+
+- Understand unsupervised learning
+- Apply clustering algorithms
+- Visualize clusters
+- Compare clustering methods
+- Interpret dendrograms
+- Evaluate clustering quality
+
 
 ---
 
 ## Dataset Description
 
-The Iris dataset is a classic dataset in machine learning.
-
-Number of samples: 150
-
-Classes:
-
-* Setosa
-* Versicolor
-* Virginica
-
-Features:
-
-1. Sepal Length
-2. Sepal Width
-3. Petal Length
-4. Petal Width
-
-Each sample represents one flower described by four numeric measurements.
+```
+Dataset: Iris
+Samples: 150
+Classes: 3 (Setosa, Versicolor, Virginica)
+Features: 4
+  x1: Sepal Length
+  x2: Sepal Width
+  x3: Petal Length
+  x4: Petal Width
+```
 
 ---
 
-## Technologies and Libraries
+## Technologies
 
-* Python 3
-* NumPy
-* Matplotlib
-* Scikit-learn
-* SciPy
-* scikit-learn-extra (optional)
+```
+Python 3
+NumPy
+Matplotlib
+Scikit-learn
+SciPy
+scikit-learn-extra (optional)
+```
 
 ---
 
 ## Installation
 
-Install required packages using:
-
+```
 pip install numpy matplotlib scikit-learn scipy scikit-learn-extra
-
-If scikit-learn-extra is not installed, the program will automatically skip K-Medoids.
+```
 
 ---
 
-## How to Run the Project
+## Run Project
 
-1. Clone the repository
-
-2. Run the script:
-
+```
 python classificationtp.py
+```
 
 ---
 
-## General Concept: Unsupervised Clustering
-
-In unsupervised learning, the algorithm does not know the true class labels. It tries to discover natural groupings in data based only on feature similarity.
-
-Clustering aims to:
-
-* Minimize distance between samples inside the same cluster
-* Maximize distance between different clusters
+# Theory Background
 
 ---
 
-## K-Means Clustering
+## Unsupervised Learning
 
-### Theory
+Unsupervised learning attempts to discover hidden patterns in data without labeled outputs.
 
-K-Means is a partition-based clustering algorithm.
+Goal:
 
-It divides data into K clusters. Each cluster is represented by a centroid (mean of points).
+```
+Minimize intra-cluster distance
+Maximize inter-cluster distance
+```
 
-The algorithm minimizes the total within-cluster squared distance.
+---
 
-Objective function:
+# K-Means Clustering
 
-Sum over all clusters of the squared distance between each point and its centroid.
+---
 
-### Algorithm Steps
+## Principle
 
-1. Choose K initial centroids randomly
-2. Assign each point to the nearest centroid
-3. Recalculate centroids as the mean of assigned points
-4. Repeat steps 2 and 3 until centroids stop changing
+K-Means partitions data into K clusters represented by centroids.
 
-### Characteristics
+---
 
-Advantages:
+## Optimization Objective
 
-* Simple
-* Fast
-* Works well for spherical clusters
+```
+Minimize J = Σ Σ || x_i - μ_k ||²
+            k   i∈Ck
+```
 
-Disadvantages:
+Where:
 
-* Sensitive to outliers
-* Sensitive to initialization
-* Requires K to be chosen manually
+```
+x_i : data point
+μ_k : centroid of cluster k
+Ck  : cluster k
+```
 
-### Implementation
+---
 
+## Algorithm Steps
+
+```
+1. Choose K initial centroids
+2. Assign points to nearest centroid
+3. Update centroids
+4. Repeat until convergence
+```
+
+---
+
+## Advantages
+
+```
+- Simple
+- Fast
+- Scalable
+```
+
+## Limitations
+
+```
+- Sensitive to outliers
+- Sensitive to initialization
+- Requires predefined K
+```
+
+---
+
+## Implementation
+
+```
 kmeans = KMeans(n_clusters=3, random_state=42)
 kmeans_predicted = kmeans.fit_predict(features)
-
-### Output
-
-* Cluster labels
-* Confusion matrix
-* Error rate
-* 3D scatter plot
+```
 
 ---
 
-## K-Medoids Clustering
+# K-Medoids Clustering
 
-### Theory
+---
 
-K-Medoids is similar to K-Means but uses real data points as cluster centers (medoids) instead of averages.
+## Principle
 
-A medoid is the most centrally located point in a cluster.
+Cluster centers are real data points called medoids.
 
-The algorithm minimizes total distance between points and their medoid.
+---
 
-### Differences from K-Means
+## Optimization Objective
 
-* Centers are actual samples
-* More robust to noise
-* Less affected by extreme values
+```
+Minimize J = Σ Σ d(x_i , m_k)
+            k   i∈Ck
+```
 
-### Characteristics
+Where:
 
-Advantages:
+```
+m_k : medoid of cluster k
+d   : distance function
+```
 
-* Robust to outliers
-* More stable clusters
+---
 
-Disadvantages:
+## Advantages
 
-* Slower than K-Means
+```
+- Robust to noise
+- Robust to outliers
+```
 
-### Implementation
+## Limitations
 
+```
+- Slower than K-Means
+```
+
+---
+
+## Implementation
+
+```
 kmedoids = KMedoids(n_clusters=3, random_state=42)
 kmedoids_predicted = kmedoids.fit_predict(features)
-
-### Output
-
-* Confusion matrix
-* Error rate
-* 3D visualization
+```
 
 ---
 
-## Hierarchical Clustering
-
-Hierarchical clustering builds clusters step by step.
-
-Two main approaches:
-
-* Agglomerative (bottom-up)
-* Divisive (top-down)
-
-This project uses agglomerative clustering.
-
-The result is visualized using a dendrogram (tree diagram).
+# Hierarchical Clustering
 
 ---
 
-## Single Linkage (Nearest Neighbor)
+## Principle
 
-### Theory
+Agglomerative approach:
 
-Distance between two clusters = minimum distance between any pair of points.
+```
+Each sample starts as its own cluster
+Clusters are merged step by step
+```
 
-### Properties
+Result represented as dendrogram.
 
-* Can create long chain-like clusters
-* Sensitive to noise
+---
 
-### Implementation
+# Single Linkage
 
+---
+
+## Distance Definition
+
+```
+D(A,B) = min d(x , y)
+         x∈A,y∈B
+```
+
+## Properties
+
+```
+- Chain effect
+- Sensitive to noise
+```
+
+---
+
+## Implementation
+
+```
 z_single = linkage(features, method='single')
+```
 
 ---
 
-## Complete Linkage (Farthest Neighbor)
+# Complete Linkage
 
-### Theory
+---
 
-Distance between two clusters = maximum distance between any pair of points.
+## Distance Definition
 
-### Properties
+```
+D(A,B) = max d(x , y)
+         x∈A,y∈B
+```
 
-* Produces compact clusters
-* Less chaining effect
+## Properties
 
-### Implementation
+```
+- Compact clusters
+- More stable
+```
 
+---
+
+## Implementation
+
+```
 z_complete = linkage(features, method='complete')
+```
 
 ---
 
-## Dendrogram Interpretation
+# Dendrogram Interpretation
 
-* X-axis: data samples
-* Y-axis: distance between merged clusters
-* Height of merge indicates dissimilarity
-
-Cutting the dendrogram at a horizontal level determines the number of clusters.
-
----
-
-## Evaluation Methods
-
-### Confusion Matrix
-
-Shows relationship between true classes and predicted clusters.
-
-confusion_matrix(encoded_labels, predicted_labels)
-
-### Error Rate
-
-Error Rate = Number of mismatched labels / Total samples
-
-np.mean(encoded_labels != predicted_labels)
+```
+X-axis : Observations
+Y-axis : Distance
+Horizontal cut => number of clusters
+```
 
 ---
 
-## Important Remark About Error Rate
-
-Clustering algorithms assign arbitrary cluster numbers.
-
-Example:
-Cluster 0 may correspond to Virginica instead of Setosa.
-
-This can cause artificially high error rate.
-
-A mapping step between clusters and real classes is required for correct accuracy measurement.
+# Evaluation Metrics
 
 ---
 
-## Visualizations
+## Confusion Matrix
 
-* 3D scatter plots showing cluster separation
-* Dendrograms for hierarchical clustering
-
-Visualization helps understand how data is grouped.
+```
+confusion_matrix(true_labels, predicted_labels)
+```
 
 ---
 
-## Project Structure
+## Error Rate
 
+```
+Error Rate = Number of wrong assignments / Total samples
+
+Error Rate = mean(true != predicted)
+```
+
+---
+
+# Important Remark
+
+```
+Cluster labels are arbitrary.
+Direct comparison with true labels may be misleading.
+Label mapping is required for true accuracy.
+```
+
+---
+
+# Visualizations
+
+```
+- 3D cluster plots
+- Dendrograms
+```
+
+---
+
+# Project Structure
+
+```
 iris-clustering-analysis-python/
 │
 ├── classificationtp.py
@@ -302,19 +346,16 @@ iris-clustering-analysis-python/
 │   ├── kmedoids.png
 │   ├── dendrogram_single.png
 │   └── dendrogram_complete.png
+```
 
 ---
 
-## Author
-
+# Author
 Hachim Fernane
-Master 1 Computer Science
-University of Guelma
-
 ---
 
-## License
-FEEL FREE TO USE JUST PRAY FOR ME
+# License
 
+FEEL FREE TO USE JUST PRAY FOR ME
 
 
