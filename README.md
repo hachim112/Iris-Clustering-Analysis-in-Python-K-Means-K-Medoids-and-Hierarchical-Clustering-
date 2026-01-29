@@ -1,20 +1,26 @@
 # Iris Clustering Analysis Using Unsupervised Learning (Python)
 
----
+
 
 ## Overview
 
-This repository contains a professional and well-structured implementation of several unsupervised clustering algorithms applied to the Iris dataset using Python. The project demonstrates partition-based and hierarchical clustering techniques, along with visualization and evaluation tools.
+This repository contains a structured and professional implementation of unsupervised clustering techniques applied to the Iris dataset using Python. The project focuses on partition-based and hierarchical clustering methods, along with mathematical background, visual interpretation, and evaluation.
 
-The project is suitable for academic use, machine learning courses, and practical experimentation.
+The current implementation generates:
+
+* 3D visualization of K-Means clusters
+* Dendrogram using Single Linkage
+* Dendrogram using Complete Linkage
+
+This repository is intended for academic use and practical experimentation in machine learning and data mining.
 
 ---
 
-## Implemented Methods
+## Implemented Algorithms
 
 
-- K-Means
-- K-Medoids
+- K-Means Clustering
+- K-Medoids Clustering (optional)
 - Hierarchical Clustering (Single Linkage)
 - Hierarchical Clustering (Complete Linkage)
 
@@ -25,22 +31,21 @@ The project is suitable for academic use, machine learning courses, and practica
 
 
 - Understand unsupervised learning
-- Apply clustering algorithms
-- Visualize clusters
-- Compare clustering methods
-- Interpret dendrograms
+- Apply clustering algorithms on real data
+- Visualize clusters in 3D
+- Interpret dendrogram structures
 - Evaluate clustering quality
 
 
 ---
 
-## Dataset Description
+## Dataset
 
 ```
-Dataset: Iris
+Name: Iris Dataset
 Samples: 150
 Classes: 3 (Setosa, Versicolor, Virginica)
-Features: 4
+Features:
   x1: Sepal Length
   x2: Sepal Width
   x3: Petal Length
@@ -70,7 +75,7 @@ pip install numpy matplotlib scikit-learn scipy scikit-learn-extra
 
 ---
 
-## Run Project
+## Run the Program
 
 ```
 python classificationtp.py
@@ -78,38 +83,36 @@ python classificationtp.py
 
 ---
 
-# Theory Background
+# Theoretical Background
 
 ---
 
-## Unsupervised Learning
+## Unsupervised Clustering
 
-Unsupervised learning attempts to discover hidden patterns in data without labeled outputs.
+Unsupervised learning groups data without using class labels.
 
 Goal:
 
-```
+
 Minimize intra-cluster distance
 Maximize inter-cluster distance
-```
+
 
 ---
 
 # K-Means Clustering
 
----
-
 ## Principle
 
-K-Means partitions data into K clusters represented by centroids.
+K-Means partitions data into K clusters represented by centroids (means).
 
 ---
 
-## Optimization Objective
+## Objective Function
 
 ```
-Minimize J = Σ Σ || x_i - μ_k ||²
-            k   i∈Ck
+J = Σ Σ || x_i - μ_k ||²
+    k  i∈Ck
 ```
 
 Where:
@@ -124,29 +127,27 @@ Ck  : cluster k
 
 ## Algorithm Steps
 
-```
-1. Choose K initial centroids
-2. Assign points to nearest centroid
+
+1. Initialize K centroids
+2. Assign each point to nearest centroid
 3. Update centroids
 4. Repeat until convergence
-```
+
 
 ---
 
 ## Advantages
 
-```
+
 - Simple
 - Fast
-- Scalable
-```
+
 
 ## Limitations
 
 ```
 - Sensitive to outliers
 - Sensitive to initialization
-- Requires predefined K
 ```
 
 ---
@@ -162,26 +163,24 @@ kmeans_predicted = kmeans.fit_predict(features)
 
 # K-Medoids Clustering
 
----
-
 ## Principle
 
-Cluster centers are real data points called medoids.
+Cluster centers are real samples called medoids.
 
 ---
 
-## Optimization Objective
+## Objective Function
 
 ```
-Minimize J = Σ Σ d(x_i , m_k)
-            k   i∈Ck
+J = Σ Σ d(x_i , m_k)
+    k  i∈Ck
 ```
 
 Where:
 
 ```
 m_k : medoid of cluster k
-d   : distance function
+d   : distance metric
 ```
 
 ---
@@ -189,11 +188,10 @@ d   : distance function
 ## Advantages
 
 ```
-- Robust to noise
 - Robust to outliers
 ```
 
-## Limitations
+## Limitation
 
 ```
 - Slower than K-Means
@@ -212,37 +210,32 @@ kmedoids_predicted = kmedoids.fit_predict(features)
 
 # Hierarchical Clustering
 
----
-
 ## Principle
 
 Agglomerative approach:
 
 ```
-Each sample starts as its own cluster
-Clusters are merged step by step
+Each sample starts as one cluster
+Closest clusters are merged iteratively
 ```
 
-Result represented as dendrogram.
+Result is represented using a dendrogram.
 
 ---
 
 # Single Linkage
 
----
-
 ## Distance Definition
 
 ```
-D(A,B) = min d(x , y)
+D(A,B) = min d(x,y)
          x∈A,y∈B
 ```
 
-## Properties
+## Property
 
 ```
-- Chain effect
-- Sensitive to noise
+Chain effect
 ```
 
 ---
@@ -257,20 +250,17 @@ z_single = linkage(features, method='single')
 
 # Complete Linkage
 
----
-
 ## Distance Definition
 
 ```
-D(A,B) = max d(x , y)
+D(A,B) = max d(x,y)
          x∈A,y∈B
 ```
 
-## Properties
+## Property
 
 ```
-- Compact clusters
-- More stable
+Compact clusters
 ```
 
 ---
@@ -288,14 +278,12 @@ z_complete = linkage(features, method='complete')
 ```
 X-axis : Observations
 Y-axis : Distance
-Horizontal cut => number of clusters
+Horizontal cut -> number of clusters
 ```
 
 ---
 
-# Evaluation Metrics
-
----
+# Evaluation
 
 ## Confusion Matrix
 
@@ -303,33 +291,29 @@ Horizontal cut => number of clusters
 confusion_matrix(true_labels, predicted_labels)
 ```
 
----
-
 ## Error Rate
 
 ```
-Error Rate = Number of wrong assignments / Total samples
-
-Error Rate = mean(true != predicted)
+Error Rate = mean(true_labels != predicted_labels)
 ```
 
 ---
 
-# Important Remark
+# Important Note
 
 ```
 Cluster labels are arbitrary.
-Direct comparison with true labels may be misleading.
-Label mapping is required for true accuracy.
+Direct comparison may be misleading.
 ```
 
 ---
 
-# Visualizations
+# Outputs Generated
 
 ```
-- 3D cluster plots
-- Dendrograms
+- K-Means 3D Scatter Plot
+- Dendrogram (Single Linkage)
+- Dendrogram (Complete Linkage)
 ```
 
 ---
@@ -343,19 +327,25 @@ iris-clustering-analysis-python/
 ├── README.md
 ├── images/
 │   ├── kmeans.png
-│   ├── kmedoids.png
 │   ├── dendrogram_single.png
 │   └── dendrogram_complete.png
+│
+├── docs/
+│   ├── TP3_Classification-Automatique.pdf
+│   └── Rapport_TP3_Classification.pdf
 ```
 
 ---
 
 # Author
+
+```
 Hachim Fernane
+
+```
+
 ---
 
 # License
-
 FEEL FREE TO USE JUST PRAY FOR ME
-
 
